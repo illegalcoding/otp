@@ -17,7 +17,7 @@ int keygen(uint32_t keys[NUMSIZE], char* filename);
 int write_keys(uint32_t keys[NUMSIZE], char* filename);
 int encrypt_message(char* input_message, uint32_t output_message[NUMSIZE/2], char* filename);
 int ingest_keys(char* filename, uint32_t keys[NUMSIZE/2]);
-char* get_message(char* message);
+int get_message(char* message);
 int get_abcpos(char inputChar);
 // main function
 int main(int argc, char** argv) {
@@ -83,7 +83,7 @@ int main(int argc, char** argv) {
 int keygen(uint32_t keys[NUMSIZE], char* filename){
 	for(int i = 0;i<NUMSIZE; i++) {
 		#ifndef __OpenBSD__
-		keys[i] = randombytes_uniform(10);
+		keys[i] = randombytes_uniform(strlen(alphabet));
 		#else
 		keys[i] = arc4random_uniform(10);
 		#endif
@@ -92,11 +92,13 @@ int keygen(uint32_t keys[NUMSIZE], char* filename){
 	return 0;
 }
 
-char* get_message(char* message) {
+int get_message(char* message) {
 	printf("%s", "Enter message: ");
 	scanf("%s",message);
-	
-	return message;
+	// TODO: fix this stuff
+	//fgets(message,NUMSIZE,stdin);
+	//message[strcspn(message,"\n")] = 0;
+	return 0;
 }
 
 int encrypt_message(char* input_message, uint32_t output_message[NUMSIZE/2], char* filename) {
@@ -120,7 +122,8 @@ int encrypt_message(char* input_message, uint32_t output_message[NUMSIZE/2], cha
 			return -1;	
 		}
 		keydigit = keys[i];
-		encrypted_char = abcpos + keydigit;
+		//encrypted_char = (abcpos + keydigit) % strlen(alphabet);
+		encrypted_char = (abcpos + keydigit) % 100;
 		output_message[i] = encrypted_char;	
 	}
 	return length;	
@@ -143,7 +146,7 @@ int write_keys(uint32_t keys[NUMSIZE], char* filename) {
 	FILE* fp;
 	fp = fopen(filename, "w");
 	int counter = 0;
-	for(int i = 0; i < NUMSIZE-4; i+=5) {
+	/*for(int i = 0; i < NUMSIZE-4; i+=5) {
 		fprintf(fp,"%d",keys[i]);
 		fprintf(fp,"%d",keys[i+1]);
 		fprintf(fp,"%d",keys[i+2]);
@@ -155,6 +158,9 @@ int write_keys(uint32_t keys[NUMSIZE], char* filename) {
 			fprintf(fp,"%s","\n");
 		}
 
+	}*/
+	for(int i = 0; i<NUMSIZE;i++) {
+		fprintf(fp,"%d",keys[i]);
 	}
 	fclose(fp);
 	return 0;
