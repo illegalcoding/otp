@@ -85,7 +85,7 @@ int keygen(uint32_t keys[NUMSIZE], char* filename){
 		#ifndef __OpenBSD__
 		keys[i] = randombytes_uniform(strlen(alphabet));
 		#else
-		keys[i] = arc4random_uniform(10);
+		keys[i] = arc4random_uniform(strlen(alphabet));
 		#endif
 	}
 	
