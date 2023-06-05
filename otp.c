@@ -166,7 +166,6 @@ int write_keys(uint32_t keys[NUMSIZE], char* filename) {
 	return 0;
 }
 int ingest_keys(char* filename, uint32_t keys[NUMSIZE/2]) {
-	uint32_t debugkeys[NUMSIZE/2] = {0};
 	FILE* fp;
 	char* stringbuf;
 	char* intermediatebuf;
