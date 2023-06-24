@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
     message = (char *)malloc(NUMSIZE * sizeof(char));
     //encrypted_message = (char *)malloc(NUMSIZE * sizeof(char));
 	printf("%s\n","?");
-	scanf(" %c",&response);
+	scanf("%c%*c",&response);
 	response = tolower(response);
 	if(response == 'e') {
 		doEncrypt = true;
@@ -94,10 +94,8 @@ int keygen(uint32_t keys[NUMSIZE], char* filename){
 
 int get_message(char* message) {
 	printf("%s", "Enter message: ");
-	scanf("%s",message);
-	// TODO: fix this stuff
-	//fgets(message,NUMSIZE,stdin);
-	//message[strcspn(message,"\n")] = 0;
+	fgets(message,NUMSIZE,stdin);
+	message[strcspn(message,"\n")] = 0;
 	return 0;
 }
 
@@ -200,8 +198,9 @@ int ingest_keys(char* filename, uint32_t keys[NUMSIZE/2]) {
 		loadcounter++;
 	}
 	// printf("%s", intermediatebuf); // debug only
-	// TODO: return amount of numbers;
+	// TODO: return amount of numbers
 	free(stringbuf);
 	free(intermediatebuf);
+	
 	return 0;
 }
