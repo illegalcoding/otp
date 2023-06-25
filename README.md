@@ -3,4 +3,5 @@ one time pad implemented in c using libsodium (except on OpenBSD, because i coul
 TODO:
   * Add decoder
   * Limit key to 240 characters for better formatting
+  * Replace explicit_bzero() with memset() for compatibility
 
