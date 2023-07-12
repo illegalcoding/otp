@@ -12,7 +12,7 @@
 // definitions, global variables
 #define NUMSIZE 240
 const char * alphabet = "abcdefghijklmnopqrstuvwxyz";
-// function protypes
+// function protoypes
 int keygen(uint32_t keys[NUMSIZE], char* filename);
 int write_keys(uint32_t keys[NUMSIZE], char* filename);
 int encrypt_message(char* input_message, uint32_t output_message[NUMSIZE/2], char* filename);
