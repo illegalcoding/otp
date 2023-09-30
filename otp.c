@@ -5,6 +5,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <math.h>
+#include <stdint.h>
 #ifndef __OpenBSD__
 #include <sodium.h>
 #include <sodium/randombytes.h>
@@ -36,8 +37,8 @@ int main(int argc, char** argv) {
 	bool doEncrypt = false;
 	bool doKeygen = false;
 	// main stuff
-    message = (char *)malloc(NUMSIZE * sizeof(char));
-    //encrypted_message = (char *)malloc(NUMSIZE * sizeof(char));
+	message = (char *)malloc(NUMSIZE * sizeof(char));
+	//encrypted_message = (char *)malloc(NUMSIZE * sizeof(char));
 	printf("%s\n","?");
 	scanf("%c%*c",&response);
 	response = tolower(response);
@@ -157,6 +158,11 @@ int write_keys(uint32_t keys[NUMSIZE], char* filename) {
 		}
 
 	}*/
+	/* This should probably sprintf to a string which we then cap at 240 characters, since this way
+	 * we don't know how long the keyfile is going to be.
+	 * It's also easy to format 240 characters into a neat (5x6)x8 block
+	 * like the one on the skadakar/garble github page.
+	 */
 	for(int i = 0; i<NUMSIZE;i++) {
 		fprintf(fp,"%d",keys[i]);
 	}
